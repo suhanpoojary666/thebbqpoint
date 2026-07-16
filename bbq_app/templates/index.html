@@ -1,0 +1,717 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The BBQ Point | Grilled to Perfection on the Back of a Legend</title>
+    <meta name="description" content="Discover The BBQ Point, a unique BBQ chain operating out of the back of a classic yellow Ambassador car. Try our wings, lollipops, tikka, and combos.">
+    <link rel="shortcut icon" href="{% static 'images/logo.jpg' %}" type="image/jpeg">
+    <!-- FontAwesome for fallback brand icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Style -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=1.5">
+    <style>
+        /* Inline overrides to solve browser cache issues */
+        .hero-slider-box {
+            margin: 40px 0 0 0 !important;
+            width: 100% !important;
+            max-width: 320px !important;
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+        }
+        @media (max-width: 992px) {
+            .hero-slider-box {
+                margin: 40px auto 0 !important;
+                align-items: center !important;
+            }
+        }
+        .hero-slider-label {
+            display: block !important;
+            text-align: inherit !important;
+            font-family: var(--font-display) !important;
+            font-size: 0.9rem !important;
+            font-weight: 700 !important;
+            color: var(--color-text-gray) !important;
+            text-transform: uppercase !important;
+            margin-bottom: 12px !important;
+            letter-spacing: 0.5px !important;
+        }
+        .hero-slider-label span {
+            color: var(--color-yellow) !important;
+            text-shadow: 0 0 10px rgba(255, 193, 7, 0.3) !important;
+            margin-left: 4px !important;
+        }
+        .hero-slider-box .grill-slider {
+            -webkit-appearance: none !important;
+            appearance: none !important;
+            width: 100% !important;
+            height: 6px !important;
+            border-radius: 5px !important;
+            background: #222 !important;
+            outline: none !important;
+            cursor: pointer !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .hero-slider-box .grill-slider::-webkit-slider-thumb {
+            -webkit-appearance: none !important;
+            appearance: none !important;
+            width: 18px !important;
+            height: 18px !important;
+            border-radius: 50% !important;
+            background: var(--color-yellow) !important;
+            box-shadow: 0 0 8px var(--color-yellow) !important;
+            transition: 0.2s !important;
+        }
+        .hero-slider-box .grill-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2) !important;
+            background: var(--color-orange) !important;
+            box-shadow: 0 0 12px var(--color-orange) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================================
+       GLASSMORPHIC HEADER / NAVIGATION
+       ========================================================================== -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="nav-logo">
+                <img src="{% static 'images/logo.jpg' %}" alt="The BBQ Point Logo">
+                <span>THE BBQ POINT</span>
+            </a>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#hero" class="nav-link">Home</a></li>
+                <li><a href="#concept" class="nav-link">Our Concept</a></li>
+                <li><a href="#menu" class="nav-link">Menu</a></li>
+                <li><a href="#reviews" class="nav-link">Reviews</a></li>
+                <li><a href="#contact" class="nav-link">Find Us</a></li>
+                <li><a href="#swiggy-order-link" class="btn-cta">Order Now</a></li>
+            </ul>
+
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Navigation Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+       HERO BANNER
+       ========================================================================== -->
+    <section id="hero">
+        <canvas id="embers-canvas"></canvas>
+        <div class="container hero-grid">
+            <div class="hero-content reveal active">
+                
+                <h1>THE <span class="text-gradient">BBQ</span><br>POINT</h1>
+                <p class="hero-tagline">
+                    Experience Udupi's most unique food concept! We serve tender, smoky, char-grilled perfection straight out of the boot of a classic yellow Ambassador car.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#menu" class="btn-cta">Explore Menu</a>
+                    <a href="#contact" class="btn-secondary">Locate Car</a>
+                </div>
+                
+                <!-- Grill Temperature slider below buttons -->
+                <div class="hero-slider-box">
+                    <label for="grill-slider" class="hero-slider-label">Grill Heat: <span id="grill-temp-val">150°C</span></label>
+                    <input type="range" id="grill-slider" class="grill-slider" min="100" max="400" value="150">
+                </div>
+            </div>
+            
+            <div class="hero-visual reveal active">
+                <div class="hero-logo-frame">
+                    <img class="hero-logo-img" src="{% static 'images/logo.jpg' %}" alt="The BBQ Point Ambassador Car Logo">
+                    
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       THE AMBASSADOR CONCEPT (INTERACTIVE)
+       ========================================================================== -->
+    <section id="concept">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">The Story</span>
+                <h2 class="section-title">Grillin' In Classic Style</h2>
+            </div>
+            
+            <div class="concept-grid">
+                <div class="car-interactive-container reveal">
+                    <!-- Custom SVG representing the back of a classic Ambassador Car -->
+                    <div class="car-art">
+                        <svg viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Road shadow -->
+                            <ellipse cx="200" cy="310" rx="140" ry="15" fill="rgba(0,0,0,0.4)" />
+                            
+                            <!-- Car Outline (Back View) -->
+                            <!-- Body shell -->
+                            <path d="M 90,260 
+                                     C 80,260 65,250 65,210 
+                                     C 65,180 70,140 90,110 
+                                     C 110,80 150,60 200,60 
+                                     C 250,60 290,80 310,110 
+                                     C 330,140 335,180 335,210 
+                                     C 335,250 320,260 310,260 
+                                     Z" fill="#FFC107" stroke="#E0A800" stroke-width="4" />
+                            
+                            <!-- Rear Windshield -->
+                            <path d="M 120,110 
+                                     C 130,95 160,80 200,80 
+                                     C 240,80 270,95 280,110 
+                                     C 285,120 280,140 275,145 
+                                     C 250,155 150,155 125,145 
+                                     C 120,140 115,120 120,110 Z" fill="#1A1A1A" stroke="#FFD54F" stroke-width="2" />
+                            
+                            <!-- Boot Panel Lid (Open for Grill Setup) -->
+                            <path d="M 95,200 
+                                     C 95,190 100,165 200,165 
+                                     C 300,165 305,190 305,200 
+                                     C 305,230 290,250 200,255 
+                                     C 110,250 95,230 95,200 Z" fill="#E69F00" stroke="#C98B00" stroke-width="2" />
+                            
+                            <!-- Inside of Trunk (The Grill Chamber) -->
+                            <path d="M 115,180 
+                                     L 285,180 
+                                     C 285,225 255,240 200,240 
+                                     C 145,240 115,225 115,180 Z" fill="#2E2E2E" />
+                            
+                            <!-- Red Hot Glowing Grill Charcoal Bed -->
+                            <path class="car-hotspot-grill" d="M 120,185 
+                                     L 280,185 
+                                     C 280,215 250,230 200,230 
+                                     C 150,230 120,215 120,185 Z" fill="#FF3D00" />
+                            
+                            <!-- Grill Grate Lines -->
+                            <line x1="125" y1="185" x2="275" y2="185" stroke="#111" stroke-width="2" />
+                            <line x1="130" y1="192" x2="270" y2="192" stroke="#111" stroke-width="2" />
+                            <line x1="135" y1="200" x2="265" y2="200" stroke="#111" stroke-width="2" />
+                            <line x1="140" y1="208" x2="260" y2="208" stroke="#111" stroke-width="2" />
+                            <line x1="150" y1="216" x2="250" y2="216" stroke="#111" stroke-width="2" />
+                            <line x1="165" y1="224" x2="235" y2="224" stroke="#111" stroke-width="2" />
+                            
+                            <!-- Taillights (Vintage Vertical Blocks) -->
+                            <!-- Left Taillight -->
+                            <rect x="75" y="170" width="12" height="30" rx="3" fill="#D84315" stroke="#444" stroke-width="1" />
+                            <circle cx="81" cy="185" r="3" fill="#FFD54F" />
+                            <!-- Right Taillight -->
+                            <rect x="313" y="170" width="12" height="30" rx="3" fill="#D84315" stroke="#444" stroke-width="1" />
+                            <circle cx="319" cy="185" r="3" fill="#FFD54F" />
+                            
+                            <!-- Chrome Rear Bumper -->
+                            <path d="M 60,250 
+                                     C 70,255 100,265 200,265 
+                                     C 300,265 330,255 340,250
+                                     C 345,260 335,272 310,274
+                                     C 250,280 150,280 90,274
+                                     C 65,272 55,260 60,250 Z" fill="#E0E0E0" stroke="#BDBDBD" stroke-width="1" />
+                            
+                            <!-- License Plate (THE BBQ POINT) -->
+                            <rect x="160" y="260" width="80" height="20" rx="2" fill="#FFF" stroke="#222" stroke-width="1.5" />
+                            <text x="200" y="274" font-family="'Space Grotesk', sans-serif" font-size="8" font-weight="bold" fill="#000" text-anchor="middle">KA 20 M 7489</text>
+                            
+                            <!-- Vintage Wheels (Rear View Bottoms) -->
+                            <rect x="95" y="274" width="30" height="40" rx="5" fill="#1A1A1A" />
+                            <rect x="275" y="274" width="30" height="40" rx="5" fill="#1A1A1A" />
+                        </svg>
+                        
+                        <!-- Smoke Puffs container -->
+                        <div class="car-grill-smoke-container">
+                            <div class="smoke-puff"></div>
+                            <div class="smoke-puff"></div>
+                            <div class="smoke-puff"></div>
+                        </div>
+                        
+
+                    </div>
+                </div>
+                
+
+                
+                <div class="concept-text reveal">
+                    <span class="section-tag">Retro Meets Flavour</span>
+                    <h3>Why the Ambassador?</h3>
+                    <p class="concept-p">
+                        The Hindustan Ambassador isn't just a car; it's an Indian icon that ruled the streets for half a century. We decided to pay homage to this grand legend by transforming its signature spacious boot into Udupi's most advanced custom-engineered mobile charcoal barbecue rig.
+                    </p>
+                    <p class="concept-p">
+                        By combining nostalgic vintage vibes with state-of-the-art grilling techniques, we create a dining experience that is simple, premium, and absolutely unforgettable.
+                    </p>
+                    
+                    <div class="concept-stats">
+                        <div class="stat-card">
+                            <div class="stat-num">100%</div>
+                            <div class="stat-label">Natural Firewood Charcoal</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-num">400°C</div>
+                            <div class="stat-label">Sizzling Searing Power</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       MENU GRID
+       ========================================================================== -->
+    <section id="menu">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Fresh off the Coals</span>
+                <h2 class="section-title">The BBQ Point Menu</h2>
+            </div>
+            
+            <!-- Category Filter Buttons -->
+            <div class="menu-filter reveal">
+                <button class="filter-btn active" data-filter="all">All Items</button>
+                <button class="filter-btn" data-filter="wings">Wings</button>
+                <button class="filter-btn" data-filter="lollipops">Lollipops</button>
+                <button class="filter-btn" data-filter="tikkas">Tikka's</button>
+                <button class="filter-btn" data-filter="legs">Legs</button>
+                <button class="filter-btn" data-filter="veg">Veg</button>
+                <button class="filter-btn" data-filter="combos">Combos</button>
+            </div>
+            
+            <!-- Menu Cards Grid -->
+            <div class="menu-grid reveal">
+                <!-- Wings Category -->
+                <div class="menu-card" data-category="wings">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Peri Peri Wings <span style="font-size:0.85rem; font-weight:normal; color:var(--color-text-gray)">(5 pc)</span></h4>
+                        <span class="menu-item-price">₹120</span>
+                    </div>
+                    <p class="menu-item-desc">5 pcs crispy wings tossed in tangy, fiery Peri Peri sauce.</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-chicken">Non-Veg</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <div class="menu-card" data-category="wings">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Hot & Spicy Wings <span style="font-size:0.85rem; font-weight:normal; color:var(--color-text-gray)">(5 pc)</span></h4>
+                        <span class="menu-item-price">₹120</span>
+                    </div>
+                    <p class="menu-item-desc">5 pcs wings coated with our signature fiery hot & spicy seasoning.</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-chicken">Non-Veg</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <!-- Lollipops Category -->
+                <div class="menu-card" data-category="lollipops">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Peri Peri Lollipops <span style="font-size:0.85rem; font-weight:normal; color:var(--color-text-gray)">(5 pc)</span></h4>
+                        <span class="menu-item-price">₹120</span>
+                    </div>
+                    <p class="menu-item-desc">5 pcs juicy chicken lollipops basted with zesty, tangy Peri Peri rub.</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-chicken">Non-Veg</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <div class="menu-card" data-category="lollipops">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Hot & Spicy Lollipops <span style="font-size:0.85rem; font-weight:normal; color:var(--color-text-gray)">(5 pc)</span></h4>
+                        <span class="menu-item-price">₹120</span>
+                    </div>
+                    <p class="menu-item-desc">5 pcs chicken lollipops loaded with our special hot & spicy dry seasoning.</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-chicken">Non-Veg</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <!-- Tikka Category -->
+                <div class="menu-card" data-category="tikkas">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Kerala Pepper Tikka <span style="font-size:0.85rem; font-weight:normal; color:var(--color-text-gray)">(8 pc)</span></h4>
+                        <span class="menu-item-price">₹120</span>
+                    </div>
+                    <p class="menu-item-desc">8 pcs skewered chicken tikka marinated in crushed bold black Kerala pepper.</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-chicken">Non-Veg</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <div class="menu-card" data-category="tikkas">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Arabian Tikka <span style="font-size:0.85rem; font-weight:normal; color:var(--color-text-gray)">(8 pc)</span></h4>
+                        <span class="menu-item-price">₹120</span>
+                    </div>
+                    <p class="menu-item-desc">8 pcs tender chicken tikka with mild, aromatic Middle-Eastern spices.</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-chicken">Non-Veg</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <div class="menu-card" data-category="tikkas">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Tandoori Tikka <span style="font-size:0.85rem; font-weight:normal; color:var(--color-text-gray)">(8 pc)</span></h4>
+                        <span class="menu-item-price">₹120</span>
+                    </div>
+                    <p class="menu-item-desc">8 pcs classic tandoori-style chicken tikka with a deep charcoal crust.</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-chicken">Non-Veg</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <div class="menu-card" data-category="tikkas">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Hot & Spicy Tikka <span style="font-size:0.85rem; font-weight:normal; color:var(--color-text-gray)">(8 pc)</span></h4>
+                        <span class="menu-item-price">₹120</span>
+                    </div>
+                    <p class="menu-item-desc">8 pcs chicken tikka packed with fiery Indian spices and red chili extract.</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-chicken">Non-Veg</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <div class="menu-card" data-category="tikkas">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Peri Peri Tikka <span style="font-size:0.85rem; font-weight:normal; color:var(--color-text-gray)">(8 pc)</span></h4>
+                        <span class="menu-item-price">₹120</span>
+                    </div>
+                    <p class="menu-item-desc">8 pcs chicken tikka slow-cooked in a tangy lemon and Peri Peri bird's eye chili marinade.</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-chicken">Non-Veg</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <!-- Legs Category -->
+                <div class="menu-card" data-category="legs">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Peri Peri Grilled Leg <span style="font-size:0.85rem; font-weight:normal; color:var(--color-text-gray)">(1 pc)</span></h4>
+                        <span class="menu-item-price">₹70</span>
+                    </div>
+                    <p class="menu-item-desc">Single prime chicken leg glazed with hot Peri Peri sauce and grilled on direct flame.</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-chicken">Non-Veg</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <div class="menu-card" data-category="legs">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Hot & Spicy Grilled Leg <span style="font-size:0.85rem; font-weight:normal; color:var(--color-text-gray)">(1 pc)</span></h4>
+                        <span class="menu-item-price">₹70</span>
+                    </div>
+                    <p class="menu-item-desc">Single chicken leg basted in hot & spicy marinade, seared until perfectly crisp.</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-chicken">Non-Veg</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <div class="menu-card" data-category="legs">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Peri Peri Grilled Liver</h4>
+                        <span class="menu-item-price">₹80</span>
+                    </div>
+                    <p class="menu-item-desc">Chicken liver skewered and basted with zesty Peri Peri glaze.</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-chicken">Non-Veg</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <div class="menu-card" data-category="legs">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Hot & Spicy Grilled Liver</h4>
+                        <span class="menu-item-price">₹80</span>
+                    </div>
+                    <p class="menu-item-desc">Skewered chicken liver coated in dry hot seasoning, grilled to a smoky finish.</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-chicken">Non-Veg</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <!-- Veg Category -->
+                <div class="menu-card" data-category="veg">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Paneer Tikka</h4>
+                        <span class="menu-item-price">₹100</span>
+                    </div>
+                    <p class="menu-item-desc">Soft, fresh cottage cheese cubes skewered with bell peppers and grilled until golden.</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-veg">Veg</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <div class="menu-card" data-category="veg">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Grilled Pineapple <span style="font-size:0.85rem; font-weight:normal; color:var(--color-text-gray)">(3 pc)</span></h4>
+                        <span class="menu-item-price">₹60</span>
+                    </div>
+                    <p class="menu-item-desc">3 sweet pineapple rings dusted with cinnamon-chili sugar, caramelised on the grill.</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-veg">Veg</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <div class="menu-card" data-category="veg">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Grilled Sweet Corn <span style="font-size:0.85rem; font-weight:normal; color:var(--color-text-gray)">(4 pc)</span></h4>
+                        <span class="menu-item-price">₹60</span>
+                    </div>
+                    <p class="menu-item-desc">4 juicy sweet corn cob halves grilled with garlic butter and signature seasoning.</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-veg">Veg</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <!-- Combos Category -->
+                <div class="menu-card" data-category="combos">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Mini Combo</h4>
+                        <span class="menu-item-price">₹299</span>
+                    </div>
+                    <p class="menu-item-desc">A perfect sampler: 2 Legs + 2 Lollipops + 2 Wings + 8 pc Tikka (any flavour you like).</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-combo">Combo Pack</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <div class="menu-card" data-category="combos">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Large Combo</h4>
+                        <span class="menu-item-price">₹499</span>
+                    </div>
+                    <p class="menu-item-desc">Share with a friend: 3 Legs + 4 Wings + 3 Lollipops + 16 pc Tikka (choice of any 2 flavours).</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-combo">Combo Pack</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+                
+                <div class="menu-card" data-category="combos">
+                    <div class="menu-header-row">
+                        <h4 class="menu-item-title">Family Combo</h4>
+                        <span class="menu-item-price">₹899</span>
+                    </div>
+                    <p class="menu-item-desc">Great for parties: 6 Legs + 6 Wings + 6 Lollipops + 24 pc Tikka (choice of any 3 flavours).</p>
+                    <div class="menu-footer-row">
+                        <span class="menu-badge badge-combo">Combo Pack</span>
+                        <div class="menu-spicy-indicator"><i class="fa-solid fa-fire"></i> <i class="fa-solid fa-fire"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       REVIEWS SECTION (FORM & LIVE WALL)
+       ========================================================================== -->
+    <section id="reviews">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Word on the Street</span>
+                <h2 class="section-title">Customer Feedback</h2>
+            </div>
+            
+            <div class="reviews-grid">
+                <!-- Submit Review Form -->
+                <div class="review-form-box reveal">
+                    <h3 class="review-form-title">Leave a Review</h3>
+                    <p style="font-size:0.85rem; color:var(--color-text-gray); margin-bottom:20px; font-style:italic;">
+                        Your review will be sent directly to our headquarters at thebbqpoint@gmail.com and published live on our board!
+                    </p>
+                    
+                    <form id="review-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="form-label" for="rev-name">Your Name</label>
+                            <input class="form-input" type="text" id="rev-name" placeholder="E.g., Ananth Bhat" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="rev-email">Your Email</label>
+                            <input class="form-input" type="email" id="rev-email" placeholder="name@domain.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Your Rating</label>
+                            <div class="star-selector">
+                                <input type="radio" id="star5" name="rating" value="5" checked><label for="star5" title="5 stars">★</label>
+                                <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label>
+                                <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">★</label>
+                                <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
+                                <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="rev-comment">Review Details</label>
+                            <textarea class="form-input" id="rev-comment" rows="4" placeholder="How was your smoky experience with our Ambassador car grill?" required></textarea>
+                        </div>
+                        
+                        <button class="btn-cta submit-btn" type="submit">Submit Review <i class="fa-solid fa-fire"></i></button>
+                    </form>
+                </div>
+                
+                <!-- Live Wall of Reviews -->
+                <div class="reveal">
+                    
+                    <div class="reviews-wall" id="reviews-wall">
+                        <!-- Populated by JavaScript -->
+                        <div style="text-align: center; padding: 40px 0; color: var(--color-text-muted);">
+                            <i class="fa-solid fa-fire" style="font-size:2rem; display:block; margin:10px auto; animation:float 2s infinite; color:var(--color-yellow);"></i>
+                            Loading reviews from coals...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       MAPS, CONTACT DETAILS & DIRECT LINK LOGOS
+       ========================================================================== -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Track the Ambassador</span>
+                <h2 class="section-title">Where to Find Us</h2>
+            </div>
+            
+            <div class="contact-grid">
+                <!-- Contact info using direct logos as requested -->
+                <div class="contact-info reveal">
+                    <!-- Google Maps Card -->
+                    <div class="contact-card-box">
+                        <a class="contact-logo-circle" href="https://maps.app.goo.gl/mDSXhLcyiKADWtE39" target="_blank" rel="noopener" aria-label="Google Maps Location">
+                            <!-- SVG Google Maps Pin Logo -->
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                        </a>
+                        <div class="contact-detail-text">
+                            <h4>Our Spot</h4>
+                            <p>Near Udupi Court Road, Udupi, Karnataka</p>
+                            <p><a href="https://maps.app.goo.gl/mDSXhLcyiKADWtE39" target="_blank" rel="noopener">Open in Google Maps &rarr;</a></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Call & WhatsApp Card -->
+                    <div class="contact-card-box">
+                        <a class="contact-logo-circle" href="https://wa.me/919538071930" target="_blank" rel="noopener" aria-label="Phone and WhatsApp">
+                            <!-- SVG Call / WhatsApp Logo -->
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20.01 15.38c-1.23-.77-2.48-1.55-3.69-2.29-.38-.23-.84-.2-1.18.1l-1.84 1.84c-2.91-1.56-5.18-3.82-6.74-6.74l1.85-1.85c.32-.32.37-.8.13-1.18-.74-1.21-1.52-2.46-2.29-3.69-.32-.52-.94-.82-1.56-.82h-1.5c-1.16 0-2.1.94-2.1 2.1 0 11.54 9.36 20.9 20.9 20.9 1.16 0 2.1-.94 2.1-2.1v-1.5c0-.62-.3-1.24-.82-1.56z"/>
+                            </svg>
+                        </a>
+                        <div class="contact-detail-text">
+                            <h4>Phone & WhatsApp</h4>
+                            <p>Place direct catering or takeaway orders</p>
+                            <p><a href="tel:+919538071930">+91 9538071930</a></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Swiggy Card -->
+                    <div class="contact-card-box" id="swiggy-order-link">
+                        <a class="contact-logo-circle" href="https://www.swiggy.com/search?query=thebbqpoint" target="_blank" rel="noopener" aria-label="Order on Swiggy" style="color: #FC8019;">
+                            <!-- Official Swiggy SVG Logo -->
+                            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.034 24c-.376-.411-2.075-2.584-3.95-5.513-.547-.916-.901-1.63-.833-1.814.178-.48 3.355-.743 4.333-.308.298.132.29.307.29.409 0 .44-.022 1.619-.022 1.619a.441.441 0 1 0 .883-.002l-.005-2.939c0-.255-.278-.319-.331-.329-.511-.002-1.548-.006-2.661-.006-2.457 0-3.006.101-3.423-.172-.904-.591-2.383-4.577-2.417-6.819C3.849 4.964 5.723 2.225 8.362.868A8.13 8.13 0 0 1 12.026 0c4.177 0 7.617 3.153 8.075 7.209l.001.011c.084.981-5.321 1.189-6.39.904-.164-.044-.206-.212-.206-.284L13.5 4.996a.442.442 0 0 0-.884.002l.009 3.866a.33.33 0 0 0 .268.32l3.354-.001c1.79 0 2.542.207 3.042.588.333.254.461.739.349 1.37C18.633 16.755 12.273 23.71 12.034 24z"/>
+                            </svg>
+                        </a>
+                        <div class="contact-detail-text">
+                            <h4>Swiggy Delivery</h4>
+                            <p>Order online hot and fresh to your doorstep</p>
+                            <p><a href="https://www.swiggy.com/search?query=thebbqpoint" target="_blank" rel="noopener">Order on Swiggy &rarr;</a></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Instagram Card -->
+                    <div class="contact-card-box">
+                        <a class="contact-logo-circle" href="https://www.instagram.com/thebbqpoint/" target="_blank" rel="noopener" aria-label="Follow us on Instagram">
+                            <!-- SVG Instagram Logo -->
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                            </svg>
+                        </a>
+                        <div class="contact-detail-text">
+                            <h4>Instagram Updates</h4>
+                            <p>Follow our route, daily stories, and discount drops!</p>
+                            <p><a href="https://www.instagram.com/thebbqpoint/" target="_blank" rel="noopener">@thebbqpoint</a></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       FOOTER SECTION
+       ========================================================================== -->
+    <footer>
+        <div class="container">
+            <div class="footer-social-row">
+                <!-- Direct logos link block -->
+                <a class="footer-social-link" href="https://maps.app.goo.gl/mDSXhLcyiKADWtE39" target="_blank" rel="noopener" title="Google Maps Spot">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                </a>
+                <a class="footer-social-link" href="https://wa.me/919538071930" target="_blank" rel="noopener" title="WhatsApp Message">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a class="footer-social-link" href="tel:+919538071930" title="Direct Phone Call">
+                    <i class="fa-solid fa-phone"></i>
+                </a>
+                <a class="footer-social-link" href="https://www.swiggy.com/search?query=thebbqpoint" target="_blank" rel="noopener" title="Swiggy Store">
+                    <i class="fa-solid fa-utensils"></i>
+                </a>
+                <a class="footer-social-link" href="https://www.instagram.com/thebbqpoint/" target="_blank" rel="noopener" title="Instagram Profile">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+            </div>
+            
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+       SUCCESS NOTIFICATION MODAL OVERLAY
+       ========================================================================== -->
+    <div class="success-overlay" id="success-overlay">
+        <div class="success-modal" id="success-modal">
+            <div id="success-sparkles-container"></div>
+            <span class="success-icon"><i class="fa-solid fa-fire"></i></span>
+            <h3>Review Grilled!</h3>
+            <p>Your review has been submitted successfully, saved, and dispatched to <strong>thebbqpoint@gmail.com</strong>. Thank you for refueling our fire!</p>
+            <button class="btn-cta" id="overlay-close">Refuel More</button>
+        </div>
+    </div>
+
+    <!-- Main Logic Script -->
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>
